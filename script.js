@@ -33,7 +33,7 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      nav:APP_STATE.DEV,
+      nav:APP_STATE.HOME,
       navOpen: false,
       isMobile: document.body.clientWidth <= 1024
     }
