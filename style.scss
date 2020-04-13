@@ -111,16 +111,15 @@ nav{
         height:20px;
       }
     }
-    .open-resume{
+    .open-resume, .contact-address{
       color: #231f20;
       text-decoration: none;
       font-size: 1.1em;
       font-weight: 100;
       margin:-10px 0px;
     }
-    .email{
-      height:20px;
-      width:auto;
+    .contact-address{
+      margin:0px;
     }
 
     a, .nav-home{
@@ -614,28 +613,34 @@ video{
 
 @media only screen and (max-width: 1024px){
 
+  #root{
+    .content{
+      grid-template-columns:100%;
+    }
+  }
+
 
   .burger-menu{
     position: fixed;
     top:25px;
     left:25px;
     display:grid;
-    width:65px;
-    height:55px;
+    width:50px;
+    height:40px;
     align-content: space-between;
     z-index: 10;
-    transition: all 1s;
+    // transition: all 1s;
     div{
       background-color: #3e3e3e;
       width:100%;
-      height:7.5px;
+      height:5px;
       border-radius: 100px;
     }
   }
   .burger-open{
     grid-template-rows: 100%;
     div{
-      transition: all 0.2s;
+      transition: transform 0.2s;
       grid-area:1/1/span 1/span 1;
       align-self: center;
     }
@@ -652,6 +657,8 @@ video{
 
   nav{
     width:90vw;
+    left:-100%;
+
     transition: all 0.2s;
     z-index: 9;
     .nav-container{
@@ -676,55 +683,41 @@ video{
           height:auto;
         }
       }
-      .open-resume{
+      .open-resume, .contact-address{
         font-size:20px;
         margin:0px 0px;
       }
-      .email{
-        height:20px;
-      }
-  
     }
   }
 
-  #root{
-    .nav-closed{
-      grid-template-columns: 100%;
-      nav{
-        left:-100%;
-      }
+  .nav-open{
+    nav{
+      left:0px;
     }
-    .nav-opened{
-      nav{
-        left:0px;
-      }
-    } 
-  }
+  } 
   .about, .dev, .design{
     grid-area:1/1/span 1/span 1;
     width:90%;
     justify-self: center;
     margin-left: 0px;
     margin-top:15vh;
-    row-gap:40px;
+    row-gap:20px;
     h1{
-      font-size:15vw;
-    }
-    p{
-      font-size:6vw;
-      line-height: 1.8em;
-    }
-    h2{
       font-size:10vw;
     }
+    p, ul > li{
+      font-size:4.5vw;
+      line-height: 1.6em;
+    }
+    h2{
+      font-size:7vw;
+    }
     h3{
-      font-size:8vw;
+      font-size:5vw;
     }
     ul{
       left:0px;
       li{
-        font-size:6vw;
-        line-height: 1.8em;
         row-gap:20px;
         margin-left:20px;
         &:after{
@@ -740,15 +733,15 @@ video{
       grid-template-columns: auto;
     }
     .key-contributions{
-      row-gap:50px;
+      row-gap:20px;
     }
     .more-examples{
-      margin-top:10vh;
-      font-size:8vw !important;
+      margin-top:5vh;
+      font-size:5vw !important;
       line-height: 1.6em !important;
     }
     .numbered-list{
-      column-gap:50px;
+      column-gap:20px;
     }
   }
 

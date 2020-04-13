@@ -270,12 +270,15 @@ const NavBar = ({handleNavClick, navState}) => {
             Open Resume
           </a>
           <a href="mailto:danielfraser1205@gmail.com"
-          role="button" >
-            <img className="email"
-            id="email-image"
-            onCopy={handleEmailCopy}
-            src={document.body.clientWidth >= 1024 ?
-             "./resources/email-font.svg" : "./resources/email-outline.svg"}/>          
+          role="button"
+          onCopy={handleEmailCopy}
+          className="contact-address">
+            <span>danielfraser</span>
+            <span>1205</span>
+            <span>@</span>
+            <span>gma</span>
+            <span>il.</span>
+            <span>com</span>
           </a>
         </div>
       </nav>

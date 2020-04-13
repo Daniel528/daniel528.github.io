@@ -111,16 +111,15 @@ nav .nav-container .socials img {
   width: 20px;
   height: 20px;
 }
-nav .nav-container .open-resume {
+nav .nav-container .open-resume, nav .nav-container .contact-address {
   color: #231f20;
   text-decoration: none;
   font-size: 1.1em;
   font-weight: 100;
   margin: -10px 0px;
 }
-nav .nav-container .email {
-  height: 20px;
-  width: auto;
+nav .nav-container .contact-address {
+  margin: 0px;
 }
 nav .nav-container a, nav .nav-container .nav-home {
   position: relative;
@@ -575,21 +574,24 @@ video {
 }
 
 @media only screen and (max-width: 1024px) {
+  #root .content {
+    grid-template-columns: 100%;
+  }
+
   .burger-menu {
     position: fixed;
     top: 25px;
     left: 25px;
     display: grid;
-    width: 65px;
-    height: 55px;
+    width: 50px;
+    height: 40px;
     align-content: space-between;
     z-index: 10;
-    transition: all 1s;
   }
   .burger-menu div {
     background-color: #3e3e3e;
     width: 100%;
-    height: 7.5px;
+    height: 5px;
     border-radius: 100px;
   }
 
@@ -597,7 +599,7 @@ video {
     grid-template-rows: 100%;
   }
   .burger-open div {
-    transition: all 0.2s;
+    transition: transform 0.2s;
     grid-area: 1/1/span 1/span 1;
     align-self: center;
   }
@@ -613,6 +615,7 @@ video {
 
   nav {
     width: 90vw;
+    left: -100%;
     transition: all 0.2s;
     z-index: 9;
   }
@@ -636,21 +639,12 @@ video {
     width: 100%;
     height: auto;
   }
-  nav .nav-container .open-resume {
+  nav .nav-container .open-resume, nav .nav-container .contact-address {
     font-size: 20px;
     margin: 0px 0px;
   }
-  nav .nav-container .email {
-    height: 20px;
-  }
 
-  #root .nav-closed {
-    grid-template-columns: 100%;
-  }
-  #root .nav-closed nav {
-    left: -100%;
-  }
-  #root .nav-opened nav {
+  .nav-open nav {
     left: 0px;
   }
 
@@ -660,27 +654,25 @@ video {
     justify-self: center;
     margin-left: 0px;
     margin-top: 15vh;
-    row-gap: 40px;
+    row-gap: 20px;
   }
   .about h1, .dev h1, .design h1 {
-    font-size: 15vw;
-  }
-  .about p, .dev p, .design p {
-    font-size: 6vw;
-    line-height: 1.8em;
-  }
-  .about h2, .dev h2, .design h2 {
     font-size: 10vw;
   }
+  .about p, .about ul > li, .dev p, .dev ul > li, .design p, .design ul > li {
+    font-size: 4.5vw;
+    line-height: 1.6em;
+  }
+  .about h2, .dev h2, .design h2 {
+    font-size: 7vw;
+  }
   .about h3, .dev h3, .design h3 {
-    font-size: 8vw;
+    font-size: 5vw;
   }
   .about ul, .dev ul, .design ul {
     left: 0px;
   }
   .about ul li, .dev ul li, .design ul li {
-    font-size: 6vw;
-    line-height: 1.8em;
     row-gap: 20px;
     margin-left: 20px;
   }
@@ -694,15 +686,15 @@ video {
     grid-template-columns: auto;
   }
   .about .key-contributions, .dev .key-contributions, .design .key-contributions {
-    row-gap: 50px;
+    row-gap: 20px;
   }
   .about .more-examples, .dev .more-examples, .design .more-examples {
-    margin-top: 10vh;
-    font-size: 8vw !important;
+    margin-top: 5vh;
+    font-size: 5vw !important;
     line-height: 1.6em !important;
   }
   .about .numbered-list, .dev .numbered-list, .design .numbered-list {
-    column-gap: 50px;
+    column-gap: 20px;
   }
 }
 
