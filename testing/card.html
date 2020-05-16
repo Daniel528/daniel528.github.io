@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>bruh</title>
+  <meta name="author" content="Daniel">
+  <meta name="description" content="Figma/web prototype tool">
+    <style>
+      p{
+        color:#171717;
+        font-size:16px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      #name{
+        font-size:20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="name">bitchin</p>
+    <p id="distance">120202</p>
+     
+  </body>
+
+  <script>
+   window.addEventListener("message", function(e){
+    document.querySelector("#name").innerHTML = e.data.name;
+    document.querySelector("#distance").innerHTML = e.data.distance + ' km';
+   })
+
+  </script>
+</html>
+

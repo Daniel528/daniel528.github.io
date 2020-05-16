@@ -7,133 +7,111 @@
   <meta name="author" content="Daniel">
   <meta name="description" content="Figma/web prototype tool">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
-
-  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
   </head>
-  <body class="prototype-body">
-    <!-- <button id="toFigma">Time To Switch</button> -->
-    <div class="container">
-      <div id="map" class="map"></div>
-      <div class="card">
-        <h1>Pick Your Destination</h1>
-        <p id="onlysofaraway"></p>
-        <button id="toFigma">SAVE</button>
-      </div>
-      <div id="pin"></div>
-      <div id="myloc"></div>  
-    </div>
+  <body>
+    <div id="clickshield"></div>
+    <!-- <div id="testdummy"></div> -->
+    <iframe id="figma" style="border: none;" width="414" height="736" crossorigin
+    src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FMihgQFCPoEX2rA0UV6aWNG%2FTest-Plugin-Implemenet%3Fnode-id%3D1%253A2%26viewport%3D288%252C325%252C0.3349246084690094%26scaling%3Dcontain?device=mobile" 
+    ></iframe>
+
+    <iframe id="figmatwo" style="border: none;" width="414" height="736" crossorigin
+    src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FMihgQFCPoEX2rA0UV6aWNG%2FTest-Plugin-Implemenet%3Fnode-id%3D312%253A83%26viewport%3D288%252C325%252C0.3349246084690094%26scaling%3Dcontain?device=mobile" 
+    ></iframe>
+
+    <iframe id="web"
+     src="prototype.html" name="website" style="border:none;"></iframe>
+
+     <iframe id="webtwo" class="webtwo"
+     src="card.html" name="website" style="border:none;"></iframe>
+     <!-- <div id="webtwo">bedrock</div> -->
+ 
+     <!-- data:
+     handled: true
+     nearestScrollingFrameId: "312:83"
+     nearestScrollingFrameMousePosition: {x: 359, y: 167}
+     nearestScrollingFrameOffset: {x: 0, y: 0}
+     presentedNodeId: "312:83"
+     targetNodeId: "312:97"
+     targetNodeMousePosition: {x: 8, y: 13}
+     __proto__: Object
+     type: "MOUSE_PRESS_OR_RELEASE" -->
+     
   </body>
 
-  <script> 
-  //api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=appid=003907c334335aa3f68ca23674197feb
+  <script>
+    // var vpWidth = window.innerWidth;
+    // var vpHeight = window.innerHeight;
+   var vpWidth = 414;
+    var vpHeight = 736;
+    var turnofWebTwo = true;
 
-  var lat;
-  var long;
-  var map;
+    document.body.style.width = vpWidth + "px";
+    document.body.style.height = vpHeight + "px";
 
-  var weatherData;
+    var figma = document.querySelector("#figma");
+    var web = document.querySelector("#web");
 
-  var startLoc;
-  var endLoc;
+    var figmatwo = document.querySelector("#figmatwo");
+    var webtwo = document.querySelector("#webtwo");
 
-  var overlay = new ol.Overlay({
-    element: document.querySelector("#pin"),
-    autoPan: true,
-    autoPanAnimation: {
-      duration: 250
-    }
-  });
+    window.addEventListener("message", function(e){
+      console.log(e.data)
+      if(e.data && e.data.type == "INITIAL_LOAD"){
+        web.classList.add('hide');
+        figma.classList.remove('hide');
+        webtwo.classList.add('hide');
+        figmatwo.classList.add('hide');
+      }
 
-  var myLoc = new ol.Overlay({
-    element:document.querySelector("#myloc")
-  })
+      if(e.data.type == "PRESENTED_NODE_CHANGED" && e.data.data.presentedNodeId == "315:32"){
+        switchToWeb()
+      }
 
-  navigator.geolocation.getCurrentPosition(function(position){
-    // console.log(position.coords)
-    lat = position.coords.latitude;
-    long = position.coords.longitude;
-    startLoc = [long,lat];
-    setupMap(startLoc);
-    mapClickHandlers();
-  })
+      if(e.data.type == "fucklarry"){
+        switchToFigmaTwo(e.data.distance, e.data.name)
+      }
 
-  function setupMap(longlat){
-    map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
-        ],
-        overlays:[overlay, myLoc],
-        view: new ol.View({
-          center: ol.proj.fromLonLat(longlat),
-          zoom: 4
-        })
-      });
-      myLoc.setPosition(ol.proj.fromLonLat([153.0312, -27.4677]));
-  }
 
-  function mapClickHandlers(){
-    map.on("click", function(evt){
-      var coords = ol.proj.toLonLat(evt.coordinate);
-      var lat = coords[1];
-      var lon = coords[0];
-      //var locTxt = "Latitude: " + lat + " Longitude: " + lon;
-      endLoc = [lon,lat]
-      overlay.setPosition(evt.coordinate);
-      evaluateDistance();
+      if(turnofWebTwo && e.data.type == "PRESENTED_NODE_CHANGED"){
+        webtwo.classList.add("hide");
+      }
     })
 
-    
-  }
+    function switchToWeb(){
+      toggle();
+    }
 
-  function evaluateDistance(){
-    console.log('friendly')
-    var distance = haversineDistance(
-      startLoc, endLoc, false
-    )
-    distance = Math.floor(distance)
-    document.querySelector("#onlysofaraway").innerHTML = distance + ' km'
-  }
+    function switchToFigmaTwo(dist, name){
+      web.classList.add('hide');
+      figma.classList.add('hide');
+      webtwo.classList.remove('hide');
+      webtwo.classList.add('highest');
+      figmatwo.classList.remove('hide');
+      webtwo.contentWindow.postMessage({distance:dist, name: name})
+      turnofWebTwo = true;
+    }
 
+    function webOnTop(){
+      
+    }
 
+    function toggle(){
+      web.classList.toggle('hide');
+      figma.classList.toggle('hide');
+    }
 
-  function haversineDistance(coords1, coords2, isMiles) {
-  function toRad(x) {
-    return x * Math.PI / 180;
-  }
+    [web, figma, webtwo, figmatwo].map(x => {
+      x.height = vpHeight;
+      x.width = vpWidth;
+    })
 
-  var lon1 = coords1[0];
-  var lat1 = coords1[1];
+    // web.height = vpHeight;
+    // web.width = vpWidth;
+    // figma.height = vpHeight;
+    // figma.width = vpWidth;
 
-  var lon2 = coords2[0];
-  var lat2 = coords2[1];
-
-  var R = 6371; // km
-
-  var x1 = lat2 - lat1;
-  var dLat = toRad(x1);
-  var x2 = lon2 - lon1;
-  var dLon = toRad(x2)
-  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  var d = R * c;
-
-  if(isMiles) d /= 1.60934;
-
-  return d;
-}
-
-
-
-
-
-  document.querySelector("#toFigma").onclick = () => parent.postMessage("fucklarry")
 
   </script>
 </html>

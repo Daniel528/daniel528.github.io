@@ -8,17 +8,41 @@
   background: transparent;
 }
 
+html {
+  background-color: lightgrey;
+}
+
 body {
   overflow: hidden;
   position: fixed;
   top: 0;
   left: 0;
+  width: 414px !important;
+  height: 736px !important;
 }
 
-#figma, #web {
+#clickshield {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 10vw;
+  height: 10vh;
+  z-index: 1000;
+  background-color: transparent;
+}
+
+#figma, #web, #figmatwo, #webtwo {
   position: fixed;
   top: 0;
   left: 0;
+}
+
+#webtwo {
+  width: 200px;
+  height: fit-content;
+  top: 83px;
+  left: 143px;
+  pointer-events: none;
 }
 
 .hide {
@@ -54,16 +78,29 @@ body {
   display: grid;
   grid-template-rows: auto auto auto;
 }
-.container .card h1 {
+.container .card div {
+  justify-self: center;
+  align-self: center;
+}
+.container .card div h1 {
   font-family: sans-serif;
   font-size: 16px;
   justify-self: center;
   align-self: center;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.container .card div input {
+  background-color: white;
+  border: solid 1px grey;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 5px;
 }
 .container .card p {
   justify-self: center;
   align-self: center;
-  font-size: 40px;
+  font-size: 30px;
   font-family: sans-serif;
 }
 .container .card button {
@@ -77,6 +114,10 @@ body {
   justify-self: center;
   align-self: center;
   color: white;
+}
+
+.highest {
+  z-index: 100;
 }
 
 #pin {

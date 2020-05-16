@@ -1,0 +1,154 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+  background: transparent;
+}
+html{
+  background-color: lightgrey;
+}
+
+body{
+  overflow: hidden;
+  position: fixed;
+  top:0;
+  left:0;
+  width:414px !important;
+  height:736px !important;
+}
+
+#clickshield{
+  position: fixed;
+  left: 0;
+  top:0;
+  width:10vw;
+  height:10vh;
+  z-index: 1000;
+  background-color: transparent;
+}
+
+#figma, #web, #figmatwo, #webtwo{
+  position: fixed;
+  top:0;
+  left:0;
+}
+
+#webtwo{
+  width: 200px;
+  height: fit-content;
+  top: 83px;
+  left: 143px;
+  pointer-events: none;
+}
+
+#figma{
+}
+
+#web{
+
+}
+
+.hide{
+  // z-index: -1;
+  display: none;
+  // opacity: 0;
+}
+
+.prototype-body{
+  width:100vw;
+  height:100vh;
+}
+
+.container{
+  width:100%;
+  height:100%;
+  display: grid;
+  grid-template-rows: 70% 30%;
+  grid-template-columns: 100%;
+
+  .map{
+    height: calc(100% + 10px);
+    width: 100%;
+    .ol-attribution{
+      display: none;
+    }
+  }  
+  .card{
+    height: 100%;
+    width:100%;
+    background-color: #F7DFCE;
+    border-radius: 10px 10px 0px 0px;
+    z-index: 1;
+    box-shadow: 0 -1px 9px 0 #00000052;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    div{
+      justify-self: center;
+      align-self: center;
+      h1{
+        font-family: sans-serif;
+        font-size:16px;
+        justify-self: center;
+        align-self: center;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+      input{
+        background-color: white;
+        border: solid 1px grey;
+        border-radius: 5px;
+        font-size:20px;
+        padding:5px;
+      }
+    }
+   
+    p{
+      justify-self: center;
+      align-self: center;
+      font-size: 30px;
+      font-family: sans-serif;
+    }
+    button{
+      width: fit-content;
+      height: fit-content;
+      padding: 10px 30px;
+      background-color: #228DC8;
+      border-radius: 5px;
+      font-size: 18px;
+      font-weight: bold;
+      justify-self: center;
+      align-self: center;
+      color: white;
+    }
+  }
+
+}
+
+.highest{
+  z-index: 100;
+}
+
+#pin{
+  width:20px;
+  height:20px;
+  border: solid 3px red;
+  background-color:transparent;
+  border-radius: 100px;
+  position: relative;
+  left:-10px;
+  top:-10px;
+}
+
+#myloc{
+  width:10px;
+  height:10px;
+  border: solid 3px blue;
+  background-color:transparent;
+  border-radius: 100px;
+  position: relative;
+  left:-10px;
+  top:-10px;
+}

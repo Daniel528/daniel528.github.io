@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>title</title>
+  <meta name="author" content="Daniel">
+  <meta name="description" content="Figma/web prototype tool">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
+
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+
+  </head>
+  <body class="prototype-body">
+    <!-- <button id="toFigma">Time To Switch</button> -->
+    <div class="container">
+      <div id="map" class="map"></div>
+      <div class="card">
+        <div>
+          <h1>Trip Name</h1>
+          <input type="text" id="trip-name" />
+        </div>
+        <p id="onlysofaraway"></p>
+        <button id="toFigma">SAVE</button>
+      </div>
+      <div id="pin"></div>
+      <div id="myloc"></div>  
+    </div>
+  </body>
+
+  <script> 
+  //api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=appid=003907c334335aa3f68ca23674197feb
+
+  var lat;
+  var long;
+  var map;
+
+  var distance;
+
+  var weatherData;
+
+  var startLoc;
+  var endLoc;
+
+  var overlay = new ol.Overlay({
+    element: document.querySelector("#pin"),
+    autoPan: true,
+    autoPanAnimation: {
+      duration: 250
+    }
+  });
+
+  var myLoc = new ol.Overlay({
+    element:document.querySelector("#myloc")
+  })
+
+  navigator.geolocation.getCurrentPosition(function(position){
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
+    startLoc = [long,lat];
+    setupMap(startLoc);
+    mapClickHandlers();
+  })
+
+  function setupMap(longlat){
+    map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        overlays:[overlay, myLoc],
+        view: new ol.View({
+          center: ol.proj.fromLonLat(longlat),
+          zoom: 4
+        })
+      });
+      myLoc.setPosition(ol.proj.fromLonLat([153.0312, -27.4677]));
+  }
+
+  function mapClickHandlers(){
+    map.on("click", function(evt){
+      var coords = ol.proj.toLonLat(evt.coordinate);
+      var lat = coords[1];
+      var lon = coords[0];
+      //var locTxt = "Latitude: " + lat + " Longitude: " + lon;
+      endLoc = [lon,lat]
+      overlay.setPosition(evt.coordinate);
+      evaluateDistance();
+    })
+
+    
+  }
+
+  function evaluateDistance(){
+    distance = haversineDistance(
+      startLoc, endLoc, false
+    )
+    distance = Math.floor(distance)
+    document.querySelector("#onlysofaraway").innerHTML = distance + ' km to travel'
+  }
+
+
+
+  function haversineDistance(coords1, coords2, isMiles) {
+  function toRad(x) {
+    return x * Math.PI / 180;
+  }
+
+  var lon1 = coords1[0];
+  var lat1 = coords1[1];
+
+  var lon2 = coords2[0];
+  var lat2 = coords2[1];
+
+  var R = 6371; // km
+
+  var x1 = lat2 - lat1;
+  var dLat = toRad(x1);
+  var x2 = lon2 - lon1;
+  var dLon = toRad(x2)
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+
+  if(isMiles) d /= 1.60934;
+
+  return d;
+}
+
+
+
+
+
+  document.querySelector("#toFigma").onclick = () => parent.postMessage({
+    type:"fucklarry",
+    distance: distance,
+    name:document.querySelector("#trip-name").value
+  })
+
+  </script>
+</html>
+
