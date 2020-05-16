@@ -61,6 +61,7 @@
     startLoc = [long,lat];
     setupMap(startLoc);
     mapClickHandlers();
+    console.log(startLoc);
   })
 
   function setupMap(longlat){
@@ -78,6 +79,7 @@
         })
       });
       myLoc.setPosition(ol.proj.fromLonLat([153.0312, -27.4677]));
+      console.log(map);
   }
 
   function mapClickHandlers(){
