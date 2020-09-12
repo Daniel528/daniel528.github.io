@@ -1,0 +1,17 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "scss": "node-sass --watch style.scss style.css",
+    "server": "browser-sync start --server --files ./*",
+    "start": "concurrently \"npm run server\" \"npm run scss\""
+  },
+  "author": "Daniel Fraser",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "concurrently": "^4.1.0",
+    "node-sass": "^4.11.0"
+  }
+}

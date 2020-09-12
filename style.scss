@@ -746,3 +746,22 @@ video{
   }
 
   }
+
+
+  .quickpaw{
+    background-image: url('./resources/quickpaw/background.png');
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    // background-repeat: fix;
+    body{
+      padding: 30px 0px;
+      display: grid;
+      place-content: center;
+      row-gap:50px;
+      img{
+        width:100%;
+        max-width: 95vw;
+      }
+    }
+  }
+
