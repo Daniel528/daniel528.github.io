@@ -505,7 +505,7 @@ const AboutMe = () => {
       <br /><br />
       Ok I have a joke for you. Why are there no Nurofen in the jungle?
       <br /><br />
-      Parrots-eat-em-all. Get it, it sounds like paracetamol. Not to brag but I'm pretty funny with a radical style (my mum's words) and can even do a kick flip, as long as it's on grass so I don’t hurt myself when if I fall.
+      Parrots-eat-em-all. Get it, it sounds like paracetamol. Not to brag but I'm pretty funny with a radical style (my mum's words) and can even do a kick flip, as long as it's on grass so I don’t hurt myself <span style={{textDecoration:"line-through"}}>when</span> if I fall.
       </p>
     </div>
   )

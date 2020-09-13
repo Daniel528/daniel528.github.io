@@ -9,6 +9,9 @@
   --blue:#1565C0;
   --purple:#6A1B9A;
   --black:#252525;
+
+  --nav-width:30%;
+  --body-width:70%;
 }
 
 button{
@@ -29,7 +32,7 @@ button{
   }  
   .content{
     grid-template-rows: 100%;
-    grid-template-columns: 35% 65%;
+    grid-template-columns: var(--nav-width) var(--body-width);
     width: inherit;
 
   }
@@ -40,7 +43,7 @@ nav{
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: auto;
-  width: 35%;
+  width: var(--nav-width);
   left:0;
   top:0;
   height:100vh;
@@ -477,7 +480,7 @@ video{
     width:200px;
     height:auto;
     transform:translate(-50%, -50%);
-    animation:peace 2s linear;
+    animation:peace 1.25s linear;
     animation-delay: 0.3s;
 
   }
