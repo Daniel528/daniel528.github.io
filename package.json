@@ -10,7 +10,7 @@
   "author": "Daniel Fraser",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.26.3",
+    "browser-sync": "^3.0.4",
     "concurrently": "^4.1.0",
     "node-sass": "^4.11.0"
   }
